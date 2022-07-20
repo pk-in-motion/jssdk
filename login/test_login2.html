@@ -1,0 +1,64 @@
+<html>
+    <body>
+
+      <!--
+        Select a video file:
+        <input type="file" id="video_file" name="video_file"/>
+        <br />
+        <button onclick="javascript:upload()">Upload the video</button>
+-->
+
+<button onclick="javascript:upload()">screenname</button>
+
+
+<p id="demo"></p>
+
+<!--
+      <script>
+          document.getElementById("demo").innerHTML = "Hello JavaScript!";
+          </script>
+-->
+
+        <script src="https://api.dmcdn.net/all.js"></script>
+        <script>
+            DM.init({
+                apiKey: '20c71138e510ff7ab5e2',
+                status: true,
+                cookie: true
+            });
+
+            function upload() {
+              DM.getLoginStatus(function(response)
+                    {
+                      if (response.session)
+                      {
+                        // logged in and connected user, someone you know
+                        document.getElementById("demo").innerHTML = "good!";
+                      }
+                      else
+                      { // start else
+                        //document.getElementById("demo").innerHTML = "NULL session!";
+
+                        // if login status null
+                        DM.login(function(){
+                              DM.getLoginStatus(function(response)
+                                {
+                                  if (response.session)
+                                  {   document.getElementById("demo").innerHTML = "good again!"; }
+                                  else {
+                                      document.getElementById("demo").innerHTML = "wrong cred!";
+                                  }
+                                }
+                              );
+                          }, {scope: 'manage_videos read write'});
+                        // END if login status null
+                      } //end - else
+                    });
+
+            }
+
+
+
+        </script>
+    </body>
+</html>

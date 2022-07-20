@@ -1,0 +1,73 @@
+<html>
+    <body>
+
+      <!--
+        Select a video file:
+        <input type="file" id="video_file" name="video_file"/>
+        <br />
+        <button onclick="javascript:upload()">Upload the video</button>
+-->
+
+<button onclick="javascript:upload()">screenname</button>
+
+
+<p id="demo"></p>
+
+      <script>
+          document.getElementById("demo").innerHTML = "Hello JavaScript!";
+          </script>
+
+
+        <script src="https://api.dmcdn.net/all.js"></script>
+        <script>
+            DM.init({
+                apiKey: '....',
+                status: true,
+                cookie: true
+            });
+
+            function upload() {
+                        DM.login(function(){
+                          DM.getLoginStatus(function(response)
+                                {
+                                  if (response.session)
+                                  {
+                                    // logged in and connected user, someone you know
+                                    alert('good');
+                                  }
+                                  else
+                                  {
+                                    // no user session available, someone you dont know
+                                    alert('error');
+                                  }
+                                });
+                        // start DM.api
+                        /*
+                            DM.api('/file/upload', function (response) {
+                            var xhr =  new XMLHttpRequest();
+                            xhr.open('POST', response.upload_url, true);
+                            var formData = new FormData();
+                            var videoFileInput = document.getElementById("video_file");
+                            formData.append('video', videoFileInput.files[0]);
+                            xhr.send(formData);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4) {
+                                    DM.api('/videos', 'post', {
+                                        url: JSON.parse(xhr.response).url,
+                                        title: 'Dailymotion JavaScript SDK upload test',
+                                            published: 'true'
+                                        });
+                                    }
+                                }
+                            }
+                          ); */
+                          // end DM.api
+
+                      }, {scope: 'manage_videos read write'});
+                    }
+
+
+
+        </script>
+    </body>
+</html>
